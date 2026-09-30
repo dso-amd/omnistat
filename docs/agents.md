@@ -120,7 +120,7 @@ the agent select and drive the appropriate skill. For example:
 
 The two sessions below show the kind of end-to-end interaction the skills
 enable. The agent decides which skill to invoke and which `omnistat-inspect`
-commands to run, and the user only supplies the natural-language request.
+commands to run, and you only supply the natural-language request.
 
 #### Example session 1: observational report card
 
@@ -186,7 +186,7 @@ It may take a few back-and-forth turns rather than a single reply, and you can
 steer it as you go:
 
 - **Control the length.** The default write-up can be detailed; ask for a
-  shorter form when you just want the headline, e.g. *"keep it to the top 10
+  shorter form when you just want the headline, e.g., *"keep it to the top 10
   findings"* or *"max 15 lines."*
 - **Follow up and visualize.** Drill in with further questions, or ask the
   agent to chart a metric over time; it can export the underlying time series

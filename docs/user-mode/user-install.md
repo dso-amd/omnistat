@@ -128,10 +128,9 @@ both [hardware counters](../advanced-profiling.md#hardware-counters) and
 Download a **single-node** VictoriaMetrics server. Assuming a `victoria-metrics` server is not
 already present on the system, download and extract a [precompiled
 binary](https://github.com/VictoriaMetrics/VictoriaMetrics/releases/latest) from upstream. This
-binary can generally be stored in any directory accessible by the user, but the path to the binary
+binary can generally be stored in any directory accessible to you, but the path to the binary
 will need to be known during the next section when configuring user-mode execution. Note that
-VictoriaMetrics provides a larger number of binary releases and we typically use the
-`victoria-metrics-linux-amd64` variant on x86_64 clusters.
+VictoriaMetrics provides several binary releases; the `victoria-metrics-linux-amd64` variant is recommended for x86_64 clusters.
 
 ## Configuring user-mode Omnistat
 

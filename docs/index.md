@@ -1,6 +1,6 @@
 # Omnistat Documentation
 
-Welcome to the documentation area for **Omnistat**, a set of Python utilities and data collectors to support scale-out cluster telemetry targeting AMD Instinct(tm) MI accelerators.
+Welcome to the documentation area for **Omnistat**, a set of Python utilities and data collectors to support scale-out cluster telemetry targeting AMD Instinct™ MI accelerators.
 
 ```{figure} images/omnistat_intro.png
 ---

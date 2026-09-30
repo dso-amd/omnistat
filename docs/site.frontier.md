@@ -1,11 +1,10 @@
 # ORNL
 
-This section provides instructions for running user-mode Omnistat on ORNL's
-Frontier supercomputer with pre-installed versions from AMD Research.
+This section provides instructions for running user-mode Omnistat on Oak Ridge National Laboratory's (ORNL) Frontier supercomputer with pre-installed versions from AMD Research.
 
 **Prerequisites**:
 - User account on Frontier
-- Familiarity with SLURM job submission
+- Familiarity with Simple Linux Utility for Resource Management (SLURM) job submission
 
 ## Running jobs on Frontier
 
@@ -106,7 +105,7 @@ guide](user-mode/analysis.md#exploring-results-locally).
 
 Frontier exposes an additional site‑specific collector beyond the standard set
 documented in the main [metrics](metrics) overview. The vendor collector ingests additional telemetry made
-possible by site‑specific platform integrations. On Frontier, this collector leverages the HPE
+possible by site‑specific platform integrations. On Frontier, this collector leverages the Hewlett Packard Enterprise (HPE)
 Cray `pm_counters` interface and translates raw counter files into metrics
 that distinguish cumulative energy and instantaneous power samples for
 different node-level components. Note that GPU metrics are indexed by an `accel` label and this index
@@ -133,8 +132,8 @@ may differ from the ordering used by ROCm.
 [Kernel tracing](advanced-profiling.md#kernel-tracing) is available on Frontier starting
 with Omnistat **1.12.0**. It works by loading a tracing library
 (`libomnistat_trace.so`) into the application's runtime environment to
-intercept GPU kernel dispatches. Pre-built tracing libraries are currently
-provided for ROCm 6.4.0 through 7.2.0.
+intercept GPU kernel dispatches. Pre-built tracing libraries are available under
+`${OMNISTAT_DIR}/build-trace-rocm-<version>/`.
 
 To enable kernel tracing:
 1. Create a custom configuration file with `enable_kernel_trace = True`, using

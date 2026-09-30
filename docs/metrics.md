@@ -43,7 +43,7 @@ covered in [Advanced Profiling](./advanced-profiling.md).
 
 ## ROCm
 
-This core data collector provides essential metrics for monitoring AMD Instinct(tm) GPUs covering utilization, memory usage,
+This core data collector provides essential metrics for monitoring AMD Instinct™ GPUs covering utilization, memory usage,
 power consumption, frequencies, and temperature.  These metrics can be
 collected using the ROCm System Management Interface (ROCm SMI) or the AMD
 System Management Interface (AMD SMI) and are fundamental for assessing GPU
@@ -57,7 +57,7 @@ health and performance.
 
 | GPU Metric                        | Description                          |
 | :-------------------------------- | :----------------------------------- |
-| `rocm_version_info`               | GPU model and versioning information for GPU driver and VBIOS. Labels: `driver_ver`, `vbios`, `type`, `serial`. |
+| `rocm_version_info`               | GPU model and versioning information for GPU driver and video BIOS (VBIOS). Labels: `driver_ver`, `vbios`, `type`, `serial`. |
 | `rocm_utilization_percentage`     | GPU utilization (%). |
 | `rocm_vram_used_percentage`       | Memory utilization (%). |
 | `rocm_vram_total_bytes`           | Total GPU memory (bytes). |
@@ -282,9 +282,9 @@ interface carries a `device_class` label naming the type it was detected as:
 
 - `net`: Ethernet and other standard IP interfaces.
 - `infiniband`: InfiniBand.
-- `cxi`: HPE Slingshot.
-- `ionic`: AMD Pensando AI NICs (e.g. Pollara).
-- `bnxt_re`: Broadcom RoCE NICs (e.g. Thor).
+- `cxi`: Hewlett Packard Enterprise (HPE) Slingshot.
+- `ionic`: AMD Pensando AI NICs (e.g., Pollara).
+- `bnxt_re`: Broadcom RoCE NICs (e.g., Thor).
 
 **Collector**: `enable_network`
 
@@ -297,7 +297,7 @@ RoCE NICs that report via sysfs `hw_counters` (`ionic`, `bnxt_re`) expose
 additional throughput and fabric-health metrics. Availability depends on the
 counters the driver publishes.
 
-The ECN and CNP metrics are the two ends of the same DCQCN feedback loop: a
+The Explicit Congestion Notification (ECN) and Congestion Notification Packet (CNP) metrics are the two ends of the same Data Center Quantized Congestion Notification (DCQCN) feedback loop: a
 receiver counts ECN-marked packets and answers with a CNP, which the sender
 counts as a request to lower its send rate. Both count packets *received*, but
 they report congestion in opposite traffic directions.

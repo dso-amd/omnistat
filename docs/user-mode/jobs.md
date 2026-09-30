@@ -24,7 +24,7 @@ yellow need to be customized for the local installation path.
     # Run application(s) as normal
     srun <options> ./a.out
 
-    # End of job -  stop data collection, generate summary and store collected data by jobid
+    # End of job - stop data collection, generate summary and store collected data by jobid
     ${OMNISTAT_DIR}/omnistat-usermode --stopexporters
     ${OMNISTAT_DIR}/omnistat-query --job ${SLURM_JOB_ID} --interval 10
     ${OMNISTAT_DIR}/omnistat-usermode --stopserver

@@ -2,9 +2,7 @@
 
 ## Exploring results locally
 
-To explore results previously gathered via Omnistat user-mode execution, we provide
-a Docker environment that will automatically launch the required data exploration services
-locally. This containerized environment includes Victoria Metrics to read and query
+To explore results previously gathered via Omnistat user-mode execution, a Docker environment is available that automatically launches the required data exploration services locally. This containerized environment includes Victoria Metrics to read and query
 the stored data, and Grafana as a visualization platform to display time series and
 other metrics. The following steps outline the general process to visualize user-mode results locally:
 

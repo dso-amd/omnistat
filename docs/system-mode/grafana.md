@@ -50,8 +50,7 @@ system telemetry data to an external Grafana instance.
 
 
 ```{note}
-We recommend the official documentation for production systems. However, if you
-are only interested in testing the dashboards, you can use the [Grafana Docker
+For production systems, see the official documentation. To test the dashboards only, use the [Grafana Docker
 image](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/).
 For example, run a temporary Grafana container with the following command, load
 [localhost:3000](http://localhost:3000/) in a browser, and then follow the

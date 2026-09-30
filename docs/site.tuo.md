@@ -11,7 +11,7 @@ Tuolumne supercomputer with pre-installed versions from AMD Research.
 ## Running jobs on Tuolumne
 
 Omnistat is preinstalled on Tuolumne so users only need to setup their module environment appropriately and add
-several commands to their Flux job scripts.  There are two primary options for setup which we highlight below with example Flux job scripts.
+several commands to their Flux job scripts.  There are two primary options for setup, shown below with example Flux job scripts.
 
 ### Standard usage
 
@@ -120,7 +120,7 @@ The `omnistat` module used in the previous example relies on the system provided
 
 ## Storage
 
-By default, Omnistat databases are stored in the user's Lustre file system under an `omnistat` directory, organized by Flux id as follows:
+By default, Omnistat databases are stored in your Lustre file system under an `omnistat` directory, organized by Flux id as follows:
 `/p/lustre5/${USER}/omnistat/${FLUX_ENCLOSING_ID}`
 
 It is possible to override the default path using the `OMNISTAT_VICTORIA_DATADIR` environment variable prior to starting up Omnistat. If saving to a node-local storage location, please ensure to move the data after Omnistat teardown to a shared file system to avoid losing the data after job release.

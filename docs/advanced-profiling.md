@@ -342,7 +342,7 @@ symptom is simply that one of the two data sources is silently absent.
 
 ## Older ROCm releases
 
-In ROCm versions before 10, counter collection was enabled with the
+In ROCm versions before 10.0.0, counter collection was enabled with the
 ROCProfiler v1 tool library rather than `libomnistat_count.so`:
 
 ```shell
@@ -351,6 +351,6 @@ export HSA_TOOLS_ROCPROFILER_V1_TOOLS=1
 ```
 
 The ROCProfiler v1 tool library mechanism these variables rely on is no longer
-available in ROCm 10, so they have no effect there. Configurations carried over
+available in ROCm 10.0.0, so they have no effect there. Configurations carried over
 from an older Omnistat or ROCm release should be updated to load
 `libomnistat_count.so` via `ROCP_TOOL_LIBRARIES` instead.

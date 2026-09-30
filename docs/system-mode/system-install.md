@@ -6,13 +6,12 @@ for permanent installations across an entire cluster and is typically performed 
 administrator with access to elevated credentials. 
 
 There are different ways to deploy and configure Omnistat in a data center, and each system will
-generally require a certain level of customization. Here, we provide the basic steps to install the
-Omnistat data collector, Prometheus server, and provide an example of how to deploy Omnistat in a
+generally require a certain level of customization. The following covers the basic steps to install the
+Omnistat data collector and Prometheus server, and provides an example of how to deploy Omnistat in a
 data center using Ansible. Finally, an approach for integrating with the SLURM workload manager to
 track user jobs is discussed.
 
-For system-wide installation, we recommend creation and usage of a dedicated Linux user that will be
-used to run the data collector daemon of Omnistat (`omnistat-monitor`).  In addition, per the
+For system-wide installation, create and use a dedicated Linux user to run the data collector daemon of Omnistat (`omnistat-monitor`).  In addition, per the
 architecture highlighted in {numref}`fig-system-mode`, a separate server (or VM/container) is needed
 to support installations of a Prometheus server and Grafana instance.  These services can be hosted
 on your cluster head-node, or via a separate administrative host. Note that if the host chosen to
@@ -237,7 +236,7 @@ instructions.
 
 ## Prometheus server
 
-Once the `omnistat-monitor` daemon is configured and running system-wide, we next install and configure a [Prometheus](https://prometheus.io/) server to enable automatic telemetry collection. This server typically runs on an administrative host and can be installed via OS package manager, by downloading a [precompiled binary](https://prometheus.io/download/), or using a [Docker image](https://hub.docker.com/u/prom). The install steps below highlight installation via package manager followed by a simple scrape configuration.
+Once the `omnistat-monitor` daemon is configured and running system-wide, install and configure a [Prometheus](https://prometheus.io/) server to enable automatic telemetry collection. This server typically runs on an administrative host and can be installed via OS package manager, by downloading a [precompiled binary](https://prometheus.io/download/), or using a [Docker image](https://hub.docker.com/u/prom). The install steps below highlight installation via package manager followed by a simple scrape configuration.
 
 1. Install: Prometheus server (via package manager)
 
@@ -259,7 +258,7 @@ Once the `omnistat-monitor` daemon is configured and running system-wide, we nex
    :::
    ::::
 
-2. Configuration: add a scrape configuration to Prometheus to enable telemetry collection. This configuration stanza typically resides in the `/etc/prometheus/prometheus.yml` runtime config file and controls which nodes to poll and at what frequency. The example below highlights configuration of a Prometheus job to poll Omnistat data at 30 second intervals from four separate compute nodes. We recommend keeping the `scrape_interval` setting at 5 seconds or larger.
+2. Configuration: add a scrape configuration to Prometheus to enable telemetry collection. This configuration stanza typically resides in the `/etc/prometheus/prometheus.yml` runtime config file and controls which nodes to poll and at what frequency. The example below highlights configuration of a Prometheus job to poll Omnistat data at 30 second intervals from four separate compute nodes. Keep the `scrape_interval` setting at 5 seconds or larger.
 
    ```yaml
    scrape_configs:
@@ -279,15 +278,14 @@ Edit your server's prometheus.yml file using the snippet above as a guide and re
 ```{note}
 You may want to adjust the Prometheus server default storage retention policy in order to retain telemetry data longer than the default (which is typically 15 days). Assuming you are using a distro-provided version of Prometheus, you can modify the systemd launch process to include a `--storage.tsdb.retention.time` option as shown in the snippet below:
 
-```ini
-[Service]
-Restart=on-failure
-User=prometheus
-EnvironmentFile=/etc/default/prometheus
-ExecStart=/usr/bin/prometheus $ARGS --storage.tsdb.retention.time=3y
-ExecReload=/bin/kill -HUP $MAINPID
-TimeoutStopSec=20s
-SendSIGKILL=no
+    [Service]
+    Restart=on-failure
+    User=prometheus
+    EnvironmentFile=/etc/default/prometheus
+    ExecStart=/usr/bin/prometheus $ARGS --storage.tsdb.retention.time=3y
+    ExecReload=/bin/kill -HUP $MAINPID
+    TimeoutStopSec=20s
+    SendSIGKILL=no
 ```
 
 ---
@@ -364,9 +362,11 @@ Note that this recipe assumes existence of a dedicated non-root user to run the 
 
 ## SLURM Integration
 
-An optional info metric capability exists within Omnistat to allow collected telemetry data to be mapped to individual jobs as they are scheduled by the resource manager.  Multiple options exist to implements this integration, but the recommended approach for large-scale production resources is to leverage prolog/epilog functionality within SLURM to expose relevant job information to the Omnistat data collector. This remaining portion of this section highlights basic steps for implementing this particular strategy.
+An optional info metric capability exists within Omnistat to allow collected telemetry data to be mapped to individual jobs as they are scheduled by the resource manager.  Multiple options exist to implements this integration, but the recommended approach for large-scale production resources is to leverage prolog/epilog functionality within SLURM to expose relevant job information to the Omnistat data collector. The rest of this section outlines the basic steps for this approach.
 
-<u>Note/Assumption</u>: the architecture of the resource manager integration assumes that compute nodes on the cluster are allocated **exclusively** (ie, multiple SLURM jobs do not share the same host).
+```{note}
+The resource manager integration assumes that compute nodes are allocated **exclusively** — multiple SLURM jobs must not share the same host. If node sharing is permitted, job-to-GPU attribution will be incorrect.
+```
 
 1. To enable resource manager tracking on the Omnistat client side, edit the chosen runtime config file and update the `[omnistat.collectors]` and `[omnistat.collectors.rms]` sections to have the following settings highlighted in yellow.
 
@@ -403,7 +403,7 @@ The settings above enable the resource manager collector and configures Omnistat
 
 2. SLURM configuration update(s)
 
-The second step to enable resource manager integration is to augment the prolog/epilog scripts configured for your local SLURM environment to create and tear-down the `/tmp/omni_rmsjobinfo` file. Below are example snippets that can be added to the scripts. Note that in these examples, we assume a local `slurm.conf` configuration where Prolog and Epilog are enabled as follows:
+The second step to enable resource manager integration is to augment the prolog/epilog scripts configured for your local SLURM environment to create and tear-down the `/tmp/omni_rmsjobinfo` file. Below are example snippets that can be added to the scripts. Note that these examples assume a local `slurm.conf` configuration where Prolog and Epilog are enabled as follows:
 
 
 ```
